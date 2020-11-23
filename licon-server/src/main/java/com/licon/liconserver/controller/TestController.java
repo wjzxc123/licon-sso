@@ -1,5 +1,8 @@
 package com.licon.liconserver.controller;
 
+import com.licon.liconserver.jwt.JwtTokenGenerator;
+import com.licon.liconserver.util.JwtUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,9 +26,14 @@ public class TestController {
     @Resource
     RedisTemplate<String,Object> redisTemplate;
 
+    @Autowired
+    JwtUtils jwtUtils;
+
     @PostMapping("/success")
     public User testSuccess(HttpServletRequest request, HttpServletResponse response){
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(jwtUtils.getToken(principal.getUsername()));
+        System.out.println(jwtUtils.parseToken(jwtUtils.getToken(principal.getUsername()).getAccess_token()));
         return principal;
     }
 
@@ -35,4 +43,6 @@ public class TestController {
         Object wy = redisTemplate.opsForValue().get("lsw");
         return Optional.ofNullable(wy).orElse(new Object()).toString();
     }
+
+
 }
