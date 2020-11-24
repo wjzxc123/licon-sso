@@ -24,7 +24,7 @@ public class CustomerSecurityConfig {
                 User.withUsername("root")
                 .password("{noop}root")
                 //.authorities(AuthorityUtils.NO_AUTHORITIES)
-                .authorities("ROLL_ADMIN")
+                .authorities("lsw","wy")
                 .build()
         );
         return userDetailsRepository;

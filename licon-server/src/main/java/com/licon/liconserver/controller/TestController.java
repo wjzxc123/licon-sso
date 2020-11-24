@@ -2,10 +2,13 @@ package com.licon.liconserver.controller;
 
 import com.licon.liconserver.jwt.JwtTokenGenerator;
 import com.licon.liconserver.util.JwtUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
@@ -21,6 +24,8 @@ import java.util.Optional;
  * @date 2020/11/18 13:13
  */
 @RestController
+@Slf4j
+//@RequestMapping("/foo")
 public class TestController {
 
     @Resource
@@ -32,8 +37,8 @@ public class TestController {
     @PostMapping("/success")
     public User testSuccess(HttpServletRequest request, HttpServletResponse response){
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(jwtUtils.getToken(principal.getUsername()));
-        System.out.println(jwtUtils.parseToken(jwtUtils.getToken(principal.getUsername()).getAccess_token()));
+        log.info(jwtUtils.getToken(principal.getUsername()).toString());
+        log.info(jwtUtils.parseToken(jwtUtils.getToken(principal.getUsername()).getAccess_token()).toString());
         return principal;
     }
 
@@ -44,5 +49,10 @@ public class TestController {
         return Optional.ofNullable(wy).orElse(new Object()).toString();
     }
 
-
+    @GetMapping("/test")
+    public String test() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("current authentication: 【 {} 】", authentication);
+        return "success";
+    }
 }

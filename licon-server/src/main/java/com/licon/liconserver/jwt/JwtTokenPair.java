@@ -1,6 +1,7 @@
 package com.licon.liconserver.jwt;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 

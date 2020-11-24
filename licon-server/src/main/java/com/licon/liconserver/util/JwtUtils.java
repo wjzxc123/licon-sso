@@ -25,7 +25,7 @@ public class JwtUtils {
     private static JwtUtils jwtUtils;
 
     @Autowired
-    RedisJwtTokenStorage redisTemplate;
+    RedisJwtTokenStorage jwtTokenStorage;
 
     @Autowired
     private JwtTokenGenerator jwtTokenGenerator;
@@ -33,24 +33,28 @@ public class JwtUtils {
     @PostConstruct
     public void init(){
         jwtUtils = this;
-        jwtUtils.redisTemplate = this.redisTemplate;
+        jwtUtils.jwtTokenStorage = this.jwtTokenStorage;
         jwtUtils.jwtTokenGenerator = this.jwtTokenGenerator;
     }
 
     public  JwtTokenPair getToken(String aud){
-        JwtTokenPair jwtTokenPair = redisTemplate.get(PUB_KEY + aud);
+        JwtTokenPair jwtTokenPair = jwtTokenStorage.get(PUB_KEY + aud);
         if (jwtTokenPair == null){
             jwtTokenPair = jwtTokenGenerator.productJwt(aud, new HashSet<>(), new HashMap<>());
         }
-        return redisTemplate.put(jwtTokenPair,PUB_KEY + aud);
+        return jwtTokenStorage.put(jwtTokenPair,PUB_KEY + aud);
     }
 
     public  JwtTokenPair getToken(String aud, Set<String> roles, Map<String,String> additional){
-        JwtTokenPair jwtTokenPair = redisTemplate.get(PUB_KEY + aud);
+        JwtTokenPair jwtTokenPair = jwtTokenStorage.get(PUB_KEY + aud);
         if (jwtTokenPair == null){
             jwtTokenPair = jwtTokenGenerator.productJwt(aud, roles, additional);
         }
-        return redisTemplate.put(jwtTokenPair,PUB_KEY + aud);
+        return jwtTokenStorage.put(jwtTokenPair,PUB_KEY + aud);
+    }
+
+    public JwtTokenPair getTokenFromStore(String aud){
+        return jwtTokenStorage.get(PUB_KEY + aud);
     }
 
     public JSONObject parseToken(String token){
