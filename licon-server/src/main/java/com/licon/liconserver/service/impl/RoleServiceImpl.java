@@ -19,8 +19,8 @@ public class RoleServiceImpl implements IRoleService {
     @Override
     public Set<String> queryRoleByPattern(String pattern) {
         Set<String> set = new HashSet<>();
-        set.add("wy");
-        set.add("lsw");
+        set.add("ROLE_wy");
+        set.add("ROLE_lsw");
         return set;
     }
 

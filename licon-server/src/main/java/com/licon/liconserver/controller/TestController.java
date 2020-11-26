@@ -55,4 +55,11 @@ public class TestController {
         log.info("current authentication: 【 {} 】", authentication);
         return "success";
     }
+
+    @PostMapping("/foo")
+    public String foo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("current authentication: 【 {} 】", authentication);
+        return "foo";
+    }
 }

@@ -1,18 +1,14 @@
 package com.licon.liconserver.customer;
 
 import com.licon.liconserver.dynamic.DynamicFilterInvocationSecurityMetadataSource;
-import com.licon.liconserver.util.ApplicationContextHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.vote.AffirmativeBased;
 import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
@@ -25,12 +21,8 @@ import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.*;
 
-import javax.annotation.Resource;
-import javax.servlet.Filter;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Map;
-import java.util.Optional;
 
 /**
  * Describe:
@@ -81,7 +73,7 @@ public class CustomerSpringBootWebSecurityConfiguration {
 
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            super.configure(auth);
+            //super.configure(auth);
         }
 
         @Override

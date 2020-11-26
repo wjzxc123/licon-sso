@@ -98,8 +98,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 if (StringUtils.endsWithIgnoreCase(access_token,jwtToken)){
                     JSONArray rolesArray = jsonObject.getJSONArray("roles");
-                    String roles = rolesArray.toString();
-                    List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
+                    String[] roles = rolesArray.toArray(new String[]{});
+                    List<GrantedAuthority> grantedAuthorities = AuthorityUtils.createAuthorityList(roles);
                     User user = new User("username","[PROTECTED]",grantedAuthorities);
                     //构建用户认证token
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
