@@ -17,7 +17,7 @@
 
     <modules>
         <module>licon-client</module>
-        <module>licon-server</module>
+        <module>licon-security</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
