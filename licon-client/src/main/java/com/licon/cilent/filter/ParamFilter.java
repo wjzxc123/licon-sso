@@ -1,5 +1,6 @@
 package com.licon.cilent.filter;
 
+import com.licon.cilent.session.SessionMappingStore;
 import lombok.Data;
 
 /**
@@ -13,4 +14,5 @@ public class ParamFilter {
     private String appId;
     private String appSecret;
     private String serverUrl;
+    private SessionMappingStore sessionMappingStore;
 }

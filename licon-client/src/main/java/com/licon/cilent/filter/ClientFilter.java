@@ -15,11 +15,14 @@ import java.io.IOException;
 public abstract class ClientFilter extends ParamFilter implements Filter {
     /**
      * 是否允许访问
-     * @param requet
-     * @param response
-     * @return
+     * @param request request
+     * @param response response
+     * @return {@link boolean}
+     * @throws IOException
+     * @author Licon
+     * @date 2020/11/30 21:25
      */
-    protected abstract boolean isAllowAccess(HttpServletRequest requet, HttpServletResponse response);
+    protected abstract boolean isAllowAccess(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
